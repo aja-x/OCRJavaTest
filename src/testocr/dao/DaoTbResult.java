@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package testocr.dao;
+import javax.persistence.metamodel.SingularAttribute;
 import testocr.model.TbResult;
 /**
  *
@@ -15,12 +16,23 @@ public class DaoTbResult extends BaseDao<TbResult>{
     }
 
     @Override
-    public void update(long id, TbResult t) {
+    public void update(int id, TbResult t) {
         startTransaction(PERSISTANCE_META);
         
         TbResult editTbUser = entityManager.find(TbResult.class, id);
         editTbUser.setText(t.getText());
         entityManager.getTransaction().commit();
         endTransaction();
+    }
+    public void deleteByImageId(int id){
+        startTransaction(PERSISTANCE_META);
+        TbResult tbResult = findById(id);
+        entityManager.remove(tbResult);
+        entityManager.getTransaction().commit();
+        endTransaction();
+    }
+
+    public TbResult findById(SingularAttribute<TbResult, Integer> id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
