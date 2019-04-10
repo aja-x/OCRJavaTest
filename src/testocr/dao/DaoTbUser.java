@@ -28,7 +28,7 @@ public class DaoTbUser extends BaseDao<TbUser>{
         endTransaction();
     }
     @Override
-    public void update(long id, TbUser t) {
+    public void update(int id, TbUser t) {
         startTransaction(PERSISTANCE_META);
         
         TbUser editTbUser = entityManager.find(TbUser.class, id);

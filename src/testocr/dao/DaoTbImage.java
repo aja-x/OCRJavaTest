@@ -15,7 +15,7 @@ public class DaoTbImage extends BaseDao<TbImage>{
     }
 
     @Override
-    public void update(long id, TbImage t) {
+    public void update(int id, TbImage t) {
         startTransaction(PERSISTANCE_META);
         
         TbImage editTbUser = entityManager.find(TbImage.class, id);

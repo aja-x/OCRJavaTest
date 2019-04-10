@@ -5,6 +5,8 @@
  */
 package testocr.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -17,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -30,6 +33,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TbUser.findAll", query = "SELECT t FROM TbUser t")})
 public class TbUser implements Serializable {
+
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -81,7 +87,9 @@ public class TbUser implements Serializable {
     }
 
     public void setUsername(String username) {
+        String oldUsername = this.username;
         this.username = username;
+        changeSupport.firePropertyChange("username", oldUsername, username);
     }
 
     public String getPassword() {
@@ -89,7 +97,9 @@ public class TbUser implements Serializable {
     }
 
     public void setPassword(String password) {
+        String oldPassword = this.password;
         this.password = password;
+        changeSupport.firePropertyChange("password", oldPassword, password);
     }
 
     public String getName() {
@@ -97,7 +107,9 @@ public class TbUser implements Serializable {
     }
 
     public void setName(String name) {
+        String oldName = this.name;
         this.name = name;
+        changeSupport.firePropertyChange("name", oldName, name);
     }
 
     public String getLevel() {
@@ -105,7 +117,9 @@ public class TbUser implements Serializable {
     }
 
     public void setLevel(String level) {
+        String oldLevel = this.level;
         this.level = level;
+        changeSupport.firePropertyChange("level", oldLevel, level);
     }
 
     public String getFoto() {
@@ -113,7 +127,9 @@ public class TbUser implements Serializable {
     }
 
     public void setFoto(String foto) {
+        String oldFoto = this.foto;
         this.foto = foto;
+        changeSupport.firePropertyChange("foto", oldFoto, foto);
     }
 
     public String getAlamat() {
@@ -121,7 +137,9 @@ public class TbUser implements Serializable {
     }
 
     public void setAlamat(String alamat) {
+        String oldAlamat = this.alamat;
         this.alamat = alamat;
+        changeSupport.firePropertyChange("alamat", oldAlamat, alamat);
     }
 
     public String getNohp() {
@@ -129,7 +147,9 @@ public class TbUser implements Serializable {
     }
 
     public void setNohp(String nohp) {
+        String oldNohp = this.nohp;
         this.nohp = nohp;
+        changeSupport.firePropertyChange("nohp", oldNohp, nohp);
     }
 
     @XmlTransient
@@ -164,6 +184,14 @@ public class TbUser implements Serializable {
     @Override
     public String toString() {
         return "testocr.model.TbUser[ username=" + username + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

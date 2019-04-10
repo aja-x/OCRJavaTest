@@ -5,6 +5,8 @@
  */
 package testocr.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -21,6 +23,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -34,6 +37,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TbImage.findAll", query = "SELECT t FROM TbImage t")})
 public class TbImage implements Serializable {
+
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -72,7 +78,9 @@ public class TbImage implements Serializable {
     }
 
     public void setId(Integer id) {
+        Integer oldId = this.id;
         this.id = id;
+        changeSupport.firePropertyChange("id", oldId, id);
     }
 
     public String getName() {
@@ -80,7 +88,9 @@ public class TbImage implements Serializable {
     }
 
     public void setName(String name) {
+        String oldName = this.name;
         this.name = name;
+        changeSupport.firePropertyChange("name", oldName, name);
     }
 
     public String getPath() {
@@ -88,7 +98,9 @@ public class TbImage implements Serializable {
     }
 
     public void setPath(String path) {
+        String oldPath = this.path;
         this.path = path;
+        changeSupport.firePropertyChange("path", oldPath, path);
     }
 
     public TbUser getUserUsername() {
@@ -96,7 +108,9 @@ public class TbImage implements Serializable {
     }
 
     public void setUserUsername(TbUser userUsername) {
+        TbUser oldUserUsername = this.userUsername;
         this.userUsername = userUsername;
+        changeSupport.firePropertyChange("userUsername", oldUserUsername, userUsername);
     }
 
     @XmlTransient
@@ -131,6 +145,14 @@ public class TbImage implements Serializable {
     @Override
     public String toString() {
         return "testocr.model.TbImage[ id=" + id + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

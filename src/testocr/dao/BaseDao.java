@@ -47,15 +47,15 @@ public abstract class BaseDao<T> {
         
         endTransaction();
     }
-    public abstract void update(long id, T t);
-    public void delete(long id){
+    public abstract void update(int id, T t);
+    public void delete(int id){
         startTransaction(PERSISTANCE_META);
         T t = entityManager.find(type, id);
         entityManager.remove(t);
         entityManager.getTransaction().commit();
         endTransaction();
     }
-    public T findById(long id){
+    public T findById(int id){
         startTransaction(PERSISTANCE_META);
         T t = entityManager.find(type, id);
         endTransaction();
