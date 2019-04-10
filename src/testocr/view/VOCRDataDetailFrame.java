@@ -9,7 +9,17 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+<<<<<<< HEAD
 import javax.swing.ImageIcon;
+=======
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import testocr.FileTypeFilter;
+>>>>>>> 65fc41d9f9d92782997f078766ffa71203ffac13
 import testocr.model.TbResult;
 import testocr.model.TbUser;
 
@@ -23,11 +33,19 @@ public class VOCRDataDetailFrame extends javax.swing.JFrame {
      * Creates new form DashboardFrame
      */
     TbUser session_user;
+<<<<<<< HEAD
+=======
+    TbResult content;
+>>>>>>> 65fc41d9f9d92782997f078766ffa71203ffac13
     public VOCRDataDetailFrame() {
         initComponents();
     }
     public VOCRDataDetailFrame(TbUser session_user, TbResult tbResult) {
         this.session_user = session_user;
+<<<<<<< HEAD
+=======
+        this.content = tbResult;
+>>>>>>> 65fc41d9f9d92782997f078766ffa71203ffac13
         initComponents();
         //meresize ukuran gambar sesuai label
         ImageIcon awal = new ImageIcon(session_user.getFoto());
@@ -40,6 +58,14 @@ public class VOCRDataDetailFrame extends javax.swing.JFrame {
         //menampilkan gambar
         img.setIcon(new ImageIcon(image));
         text.setText(tbResult.getText());
+<<<<<<< HEAD
+=======
+        
+        //menampilkan yang membuat
+        if(session_user.getLevel().equals("admin")){
+            created.setText("Created by : " +tbResult.getImageId().getUserUsername().getUsername());
+        }
+>>>>>>> 65fc41d9f9d92782997f078766ffa71203ffac13
     }
 
     /**
@@ -74,6 +100,12 @@ public class VOCRDataDetailFrame extends javax.swing.JFrame {
         img = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         text = new javax.swing.JTextArea();
+<<<<<<< HEAD
+=======
+        jPanel4 = new javax.swing.JPanel();
+        jButton5 = new javax.swing.JButton();
+        created = new javax.swing.JLabel();
+>>>>>>> 65fc41d9f9d92782997f078766ffa71203ffac13
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -281,6 +313,46 @@ public class VOCRDataDetailFrame extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 250, 250));
 
+<<<<<<< HEAD
+=======
+        jPanel4.setBackground(jPanel1.getBackground());
+        jPanel4.setPreferredSize(new java.awt.Dimension(154, 33));
+
+        jButton5.setBackground(new java.awt.Color(69, 39, 160));
+        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("Save Text");
+        jButton5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
+        jButton5.setContentAreaFilled(false);
+        jButton5.setPreferredSize(new java.awt.Dimension(154, 33));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 350, -1, -1));
+
+        created.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        created.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(created, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, 250, 30));
+
+>>>>>>> 65fc41d9f9d92782997f078766ffa71203ffac13
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -320,6 +392,29 @@ public class VOCRDataDetailFrame extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+<<<<<<< HEAD
+=======
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        JFileChooser fs = new JFileChooser(new File("E:\\"));
+        fs.setFileFilter(new FileTypeFilter(".txt", "Text File"));
+        int result = fs.showSaveDialog(null);
+        if(result == JFileChooser.APPROVE_OPTION){
+            //memilih file
+            File fi = fs.getSelectedFile();
+            //penulisan content ke file baru
+            try{
+                FileWriter fw = new FileWriter(fi.getAbsolutePath());
+                fw.write(content.getText());
+                fw.flush();
+                fw.close();
+                JOptionPane.showMessageDialog(null, "File berhasil disimpan di " +fi.getAbsolutePath());
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+>>>>>>> 65fc41d9f9d92782997f078766ffa71203ffac13
     /**
      * @param args the command line arguments
      */
@@ -380,11 +475,19 @@ public class VOCRDataDetailFrame extends javax.swing.JFrame {
         return resizedImg;
     } 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+<<<<<<< HEAD
+=======
+    private javax.swing.JLabel created;
+>>>>>>> 65fc41d9f9d92782997f078766ffa71203ffac13
     private javax.swing.JLabel img;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+<<<<<<< HEAD
+=======
+    private javax.swing.JButton jButton5;
+>>>>>>> 65fc41d9f9d92782997f078766ffa71203ffac13
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -396,6 +499,10 @@ public class VOCRDataDetailFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+<<<<<<< HEAD
+=======
+    private javax.swing.JPanel jPanel4;
+>>>>>>> 65fc41d9f9d92782997f078766ffa71203ffac13
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
